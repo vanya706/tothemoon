@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<form>
+<form method="post">
 	<label>
 		First name<input type="text" name="firstName">
 	</label>

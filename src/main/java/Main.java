@@ -1,3 +1,5 @@
+import entities.Users;
+import entities.Users.UsersBuilder;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.WebResourceRoot;
@@ -9,6 +11,7 @@ import org.apache.catalina.webresources.StandardRoot;
 import java.io.File;
 
 public class Main {
+
     public static void main(String[] args) throws LifecycleException {
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(Integer.parseInt(System.getenv("TOMCAT_PORT")));
