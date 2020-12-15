@@ -1,6 +1,7 @@
 package dao;
 
 import controller.ConnectionProvider;
+import controller.PooledConnectionProvider;
 import entities.Users;
 
 import java.sql.Connection;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class UsersDao {
 
-    private ConnectionProvider connectionProvider = null;
+    private ConnectionProvider connectionProvider = PooledConnectionProvider.getInstance();
 
     public Users create(Users users){
 
