@@ -4,10 +4,7 @@ import controller.ConnectionProvider;
 import controller.PooledConnectionProvider;
 import entities.Users;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class UsersDao {
@@ -29,7 +26,12 @@ public class UsersDao {
 
             statement.executeUpdate();
 
-            return null;
+            ResultSet resultSet = statement.getResultSet();
+            resultSet.next();
+
+            return users.toBuilder()
+                    .idUser(resultSet.getLong("idUser"))
+                    .build();
 
         } catch (SQLException e) {
             throw new RuntimeException();
