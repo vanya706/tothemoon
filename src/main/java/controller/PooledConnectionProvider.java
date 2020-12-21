@@ -13,7 +13,7 @@ public class PooledConnectionProvider implements ConnectionProvider{
 
     private static final PooledConnectionProvider instance = new PooledConnectionProvider();
 
-    private PooledConnectionProvider(){
+    private PooledConnectionProvider() {
 
         HikariConfig hikariConfig = new HikariConfig();
 

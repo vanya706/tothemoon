@@ -1,5 +1,8 @@
 package controller;
 
+import dao.UsersDao;
+import entities.Users;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +35,16 @@ public class LoginFormServlet extends HttpServlet {
         session.setAttribute("login", login);
         session.setAttribute("password", password);
 
-        req.getRequestDispatcher("").forward(req,resp); //TODO redirect to next page(main user page)
+
+        Users user = Users.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .login(login)
+                .password(password)
+                .build();
+
+        Users createdUser = new UsersDao().create(user);
+
+        //req.getRequestDispatcher("/news").forward(req,resp);
     }
 }

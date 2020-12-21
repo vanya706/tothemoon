@@ -26,11 +26,12 @@ public class UsersDao {
 
             statement.executeUpdate();
 
-            ResultSet resultSet = statement.getResultSet();
+
+            ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
 
             return users.toBuilder()
-                    .idUser(resultSet.getLong("idUser"))
+                    .idUser(resultSet.getLong(1))
                     .build();
 
         } catch (SQLException e) {
