@@ -43,8 +43,14 @@ public class LoginFormServlet extends HttpServlet {
                 .password(password)
                 .build();
 
-        Users createdUser = new UsersDao().create(user);
 
-        //req.getRequestDispatcher("/news").forward(req,resp);
+        UsersDao usersDao = new UsersDao();
+
+        if (usersDao.findByLogin(user.getLogin()).getLastName() == null) {
+            user = usersDao.create(user);
+        }
+
+
+        req.getRequestDispatcher("/WEB-INF/userPage.jsp").forward(req,resp);
     }
 }

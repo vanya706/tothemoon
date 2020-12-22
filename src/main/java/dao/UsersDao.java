@@ -42,7 +42,31 @@ public class UsersDao {
 
 
     public Users findByLogin(String login){
-        return null;
+        try(Connection connection = connectionProvider.getConnection();
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT idUser,firstName,lastName,login,password FROM tothemoon.users WHERE login=?"
+            )
+        ){
+
+            statement.setString(1, login);
+
+
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+
+
+            return Users.builder()
+                    .idUser(resultSet.getLong(1))
+                    .firstName(resultSet.getString(2))
+                    .lastName(resultSet.getString(3))
+                    .login(resultSet.getString(4))
+                    .password(resultSet.getString(5))
+                    .build();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 
     public Users findById(Long id){
