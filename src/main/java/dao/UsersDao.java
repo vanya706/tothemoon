@@ -2,6 +2,7 @@ package dao;
 
 import controller.ConnectionProvider;
 import controller.PooledConnectionProvider;
+import controller.UsersMapper;
 import entities.Users;
 
 import java.sql.*;
@@ -50,18 +51,9 @@ public class UsersDao {
 
             statement.setString(1, login);
 
-
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
 
-
-            return Users.builder()
-                    .idUser(resultSet.getLong(1))
-                    .firstName(resultSet.getString(2))
-                    .lastName(resultSet.getString(3))
-                    .login(resultSet.getString(4))
-                    .password(resultSet.getString(5))
-                    .build();
+            return UsersMapper.mapList(resultSet).get(0);
 
         } catch (SQLException e) {
             e.printStackTrace();
