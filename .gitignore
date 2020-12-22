@@ -1,0 +1,8 @@
+target/
+tomcat.*
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
