@@ -7,8 +7,11 @@ import entities.Users;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Optional;
 
 public class UsersDao {
+
+    private UsersMapper usersMapper = new UsersMapper();
 
     private ConnectionProvider connectionProvider = PooledConnectionProvider.getInstance();
 
@@ -42,7 +45,7 @@ public class UsersDao {
 
 
 
-    public Users findByLogin(String login){
+    public Optional<Users> findByLogin(String login){
         try(Connection connection = connectionProvider.getConnection();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT idUser,firstName,lastName,login,password FROM tothemoon.users WHERE login=?"
@@ -53,11 +56,12 @@ public class UsersDao {
 
             ResultSet resultSet = statement.executeQuery();
 
-            return UsersMapper.mapList(resultSet).get(0);
+            return usersMapper.mapList(resultSet).stream()
+                    .findFirst();
 
+            
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 

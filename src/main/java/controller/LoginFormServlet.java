@@ -35,21 +35,18 @@ public class LoginFormServlet extends HttpServlet {
         session.setAttribute("login", login);
         session.setAttribute("password", password);
 
-
-        Users user = Users.builder()
-                .firstName(firstName)
-                .lastName(lastName)
-                .login(login)
-                .password(password)
-                .build();
-
-
         UsersDao usersDao = new UsersDao();
 
-        if (usersDao.findByLogin(user.getLogin()).getLastName() == null) {
-            user = usersDao.create(user);
-        }
-
+        usersDao.findByLogin(login).orElse(
+                usersDao.create(
+                        Users.builder()
+                                .firstName(firstName)
+                                .lastName(lastName)
+                                .login(login)
+                                .password(password)
+                                .build()
+                )
+        );
 
         req.getRequestDispatcher("/WEB-INF/userPage.jsp").forward(req,resp);
     }

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UsersMapper {
 
-    static public List<Users> mapList(ResultSet resultSet){
+    public List<Users> mapList(ResultSet resultSet){
 
         try(resultSet){
             List<Users> usersList = new ArrayList<>();
