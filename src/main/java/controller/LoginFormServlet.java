@@ -37,7 +37,7 @@ public class LoginFormServlet extends HttpServlet {
 
         UsersDao usersDao = new UsersDao();
 
-        usersDao.findByLogin(login).orElse(
+        usersDao.findByLogin(login).orElseGet(() ->
                 usersDao.create(
                         Users.builder()
                                 .firstName(firstName)
